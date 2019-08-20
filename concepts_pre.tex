@@ -1,0 +1,62 @@
+\documentclass{article}
+
+% to give various notational syntax
+\usepackage{amsmath,amsthm,amssymb, mathtools, enumerate, physics}
+
+% for including images
+\usepackage{graphicx}
+\graphicspath{ {../../Images/} }
+% Resize figures that are too wide for the page.
+\makeatletter
+\def\ScaleIfNeeded{%
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\let\oldincludegraphics\includegraphics
+\renewcommand\includegraphics[2][]{%
+  \oldincludegraphics[width=\ScaleIfNeeded]{#2}
+}
+%
+%% for bibliography and citation
+%\usepackage[square,compress]{natbib}
+%\setcitestyle{super,comma}
+%\bibliographystyle{unsrtnat}
+%
+%% for executing and including python code
+%\usepackage{pythontex}
+%
+%% for defining lovely colors
+%\usepackage{xcolor}
+%\definecolor{light-gray}{gray}{0.95}
+%
+%% for syntax highlighting of non-python languages
+%\usepackage{minted}
+%\usemintedstyle[cpp]{manni}
+%\newcommand{\cpp}[1]{\mintinline{cpp}{#1}}
+
+% for linking sections of the document and table of contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+
+\newcommand{\nn}{\newline\newline}
+\newcommand{\n}{\newline}
+\newcommand{\bq}{\begin{equation}}
+\newcommand{\eq}{\end{equation}}
+\newcommand{\ba}{\begin{align}}
+\newcommand{\ea}{\end{align}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ct}[1]{\citep{#1}}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+

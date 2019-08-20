@@ -1,0 +1,133 @@
+\input{../../concepts_pre.tex}
+
+
+\begin{document}
+
+\title{Counting Problems}
+\date{}
+\maketitle
+
+\textbf{Question:} Describe the Fundamental Principle of Counting and define and give formulas for Combinations and Permutations.
+\n
+
+\textbf{The Birthday Problem}. Suppose there are k people in a room. What is the probability that there is at least one match among the k birthdays? [Use the Fundamental Principle of Counting].
+\nn
+
+\textbf{A capella Problem}. An a cappella group consisting of Alf, Bill, Cal, Deb, Eve, and Fay (3 boys and 3 girls) are deciding how to arrange themselves from left to right in a row on stage. How many ways are there to do this if
+\begin{itemize}
+\item there are no restrictions?
+\item the boys should be next to each other and so should the girls?
+\item just the boys need to be next to each other?
+\item there are 3 couples (Alf\&Deb, Bill\&Eve, Cal\&Fay), and the two members of each couple want to stand next to each other?
+\item Alf and Fay are the least skilled singers and tend to drift off key, so they should not stand next toeach other?
+\nn
+\end{itemize}
+
+
+\textbf{Cookie Problem:} How many ways are there to allocate twelve indistinguishable cookies to five children? [Use the ``stars and bars'' approach].
+\n
+
+\textbf{Question:} Explain the two main theorems that use ``stars and bars" reasoning.
+\n
+
+\textbf{Question:} What is the role of ``distinguishability'' in counting? Specifically: what is the difference between \emph{permutations} and \emph{combinations}? Relate these concepts to the cookie problem above.
+\n
+
+\textbf{Power Set Problem:} If the set $A$ has finite cardinality $n$, how many subsets of $A$ are there?
+
+
+
+
+\vspace{.3 in}
+
+\tableofcontents
+\section{Fundamental Principle of Counting}
+
+First recall the \textbf{Fundamental counting principle}: Suppose we are about to perform a sequence of k actions, one after another, and the first action can be performed in $n_1$ ways. For each of the ways of performing the first action, the second action can be performed in $n_2$ ways. For each of the ways of performing the first two actions, the third action can be performed in $n_3$ ways, and so on, up to...for each of the ways of performing the first k −1 actions, the last action can be performed in $n_k$ ways. Then the total number of ways that the full sequence of k actions can be performed is the product $n_1n_2\dot\dot\dot n_k$. This can be pictured as a kind of branching tree structure where the first tier is the first action and it is connected by branches to the possible second actions on the next tier etc. In this picture each pathway from the top tier to the bottom tier is a unique way to perform the sequence of actions.
+\nn
+
+From the counting principle the two most powerful algorithms are for:\newline
+(1) the number of ways to \textbf{choose a ranked committe} (an ordered subset) of k elements from a set of n elements,
+\begin{equation}
+\Perm{n}{k} = \frac{n!}{(n-k)!},
+\end{equation}
+\newline
+(2) the number of ways to \textbf{choose an unranked committe} (an unordered subset) of k elements form a set of n elements,
+\begin{equation}
+\Comb{n}{k} = \frac{n!}{k!(n-k)!}
+\end{equation}
+The number of unranked committees is the number of ranked committees divided by the `degeneracy' since several ranked committees will be equivalent to the same unranked committee.  The `degeneracy' is the number of ways to order the committee members, $k!$.
+\newline\newline
+
+\subsection{Birthday Problem}
+For the birthday problem, assume all birthdays are equally likely.  Compute the number of possible sets of birthdays using the fundamental counting principle: $365^k$.  Now compute the number of birthday sets that do \textit{not} contain any repeats: $365*364*...(365-k+1)=\frac{365!}{(365-k)!}$ since once you have picked the first birthday that day is no longer an option for the second person, etc. $P(\textrm{at least 1 shared b-day}) = 1 - P(\textrm{no shared b-days})$. And since all birthday sets are equally likely we know $P(\textrm{no shared b-days}) = \frac{\textrm{number of sets with none shared}}{\textrm{number of total sets}}=\frac{365!}{365^k(365-k)!}$
+\newline\newline
+
+The number is surprisingly high e.g. around p=0.5 for k=23!  People tend to underestimate this because they think in terms of the probability for a specific birthday to be shared, but in reality there are 365 possible ones that could be shared. 
+
+
+
+\section{A capella Problem}
+\begin{itemize}
+\item (a) 6! = 720.
+\item (b) There are (3!)(3!) = 36 arrangements with the 3 boys on the left, and also 36 arrangements with the 3 girls on the left, for a total of 72.
+\item (c) There are (3!)(3!) = 36 arrangements with the boys in positions 1,2,3. Similarly, there are 36 arrangements in which the boys are in positions 2,3,4. Same for positions 3,4,5, and same for positions 4,5,6. So the total is 4*36 = 144.
+\item (d) Think of choosing an ordering for the 3 couples, and then choosing orderings for the individuals given an ordering for the couples. The couples can be ordered in 3! = 6 ways. For each of those, there are 2×2×2 = 8 ways to order the individuals in the 3 couples. This gives a total of 6×8 = 48 ways.
+\item (e) First let’s choose two positions that are not next to each other. There are ${6 \choose 2}=\frac{6*5}{2!} = 15$ pairs of
+positions. Among these, the 5 pairs {1,2}, {2,3}, {3,4}, {4,5}, {5,6} are next to each other, so there are 15−5 = 10 pairs of positions where Alf and Fay could stand. For each choice of positions, there are two ways Alf and Fay can arrange themselves, depending on which is on the left. And for each choice of a position for Alf and a position for Fay, there are 4! = 24 choices of positions for the remaining 4 people. This gives a total of 10*2*24 = 480 choices.
+\end{itemize}
+
+
+
+\section{Stars and Bars}
+
+\subsection{Cookie Problem}
+We'll take the ``stars and bars" approach to visualizing the problem. Imagine ten stars arranged side-by-side. The eleven spaces (between stars and to the right of the stars) are spots where we can place bars. We will choose (with replacement) four locations from the 11 possible spots and place bars at those locations - the leftmost bar with always be for child1, the next leftmost for child2 etc. Each child will receive all the cookies to the right of his bar until he reaches someone else's bar. All the possible placement of four bars in this way corresponds to all the possible allocations of cookies without any double counting.\nn
+
+Let's break up the possible allocations into cases depending on whether or not multiple bars are occupying the same spaces. In the simplest case, none of the bars are in the same spot. There are $\binom{11}{4}$ such allocations. Next, consider that we might have only three spaces with bars, because two bars share the same space. There are three ways this can happen: the left-most occupied space has two bars, the middle occupied space has two bars, or the right-most occupied space has two bars. Each of these ways provides $\binom{11}{3}$ allocations. We could have only two spaces occupied, also in three ways: three bars then one bar, two bars then two bars, or one bar then three bars. Each of these ways provides $\binom{11}{2}$ allocations. Or we could have only one space occupied by all four bars, which gives $\binom{11}{1}$ allocations. In total, this is
+\begin{align*}
+\binom{11}{1} + 3 \binom{11}{2} + 3 \binom{11}{3} + \binom{11}{4} = 1001
+\end{align*}
+
+% question from Steve Miller's Math Riddles website
+
+As we'll see in the next part, there's a theorem telling us the answer that doesn't involve breaking the problem up into cases.\\
+
+Is it significant that the coefficients of the terms in our original method were binomial coefficients $(1, 3, 3, 1)$? IF SO, then a general expression for our result is
+\begin{align*}
+\sum_{i=0}^k \binom{k}{i} \binom{n+1}{i+1}
+\end{align*}
+From a theorem below, we will see that the answer is also $\binom{n+k-1}{k-1}$. CHECK that this identity is true - maybe using recursion.
+
+\subsection{Stars and Bars Theorems}
+\textbf{Theorem}: Given any $n$ and $k \leq n$, the number of ways of partitioning $k$ indistinguishable items into $k$ \emph{non-empty} labeled bins is $\binom{n-1}{k-1}$.\\
+
+This is very easy to see. There are $n-1$ spaces between the stars. We don't have to consider the spaces outside of all the stars because each bin must be non-empty. Likewise, we don't have to worry about the same space being chosen twice. We need to choose $k-1$ distinct spaces to place bars which will define our bins. Of course, there are $\binom{n-1}{k-1}$ ways to make such a selection.\\
+
+\textbf{Theorem}: Given any $n$ and $k \leq n$, the number of ways of partitioning $k$ indistinguishable items into $k$ labeled bins is $\binom{n+k-1}{k-1}$.\\
+
+This theorem isn't difficult to see either. This time we observe that our diagram must end up with $n + k - 1$ symbols total: $n$ stars and $k-1$ bars. We need to select $k-1$ of them to be bars. Notice that we could have equivalently counted the number of ways to assign the $n$ stars: $\binom{n+k-1}{n}$, which is equal to $\binom{n+k-1}{k-1}$.\\
+
+This number also arises in the context of counting multisets. A \emph{multiset} is a generalization of the \emph{set} concept, in which elements can be repeated. The number of multisets of cardinality $n$ taken from a finite alphabet of size $k$ is exactly $\binom{n+k-1}{k-1}$; the question is equivalent to the cookie problem posed above. To see that they are equivalent, realize that we need to count the ways of creating an (unordered) list of $n$ subset labels from a dictionary of $k$ possible labels (where the labels correspond to the children's names).
+
+% https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)
+
+\subsection{Distinguishability}
+There are a number of different types of scenarios in which we are interested in counting the number of ways that a set of $n$ objects can be assigned to $k$ roles. In counting the number of \emph{permutations} $P(n, k)$, the objects and the roles are both distinguishable. In counting the number of \emph{combinations} $C(n, k)$, the objects are distinguishable, but the roles aren't (e.g. a committee).\\
+
+The cookie problem is an example of what is sometimes called a ``bags" problem, because you can imagine placing $n$ identical items into $k$ (labeled) bags. In counting the number of ways to do this $B(n, k)$, the objects are indistinguishable, while the roles (bags) are distinguishable.\\
+
+For completion, let's consider the remaining quadrant, in which both the objects and the roles are indistinguishable. For instance, this time imagine we're placing identical cookies into unlabeled bags. Let's break it up into cases according to how many bags end up with at least one cookie. There is only one way to put all the cookies into a single bag. There are $\binom{9}{1}$ ways to create two non-empty bags of cookies if the bags are distinguishable (see the first theorem above). However, if our bags are indistinguishable, this is over-counting. We need to divide by the number of ways of labeling the bags, which is $2$ in this case. And we continue like this until we've found the number of ways to produce $k$ non-empty indistinguishable bags; finally, we sum these numbers. The general formula, then, is
+\begin{align*}
+\sum_{j=1}^k \frac{1}{j!} \binom{n-1}{j-1}
+\end{align*}
+Is there a simpler formula for this quantity?
+
+\subsection{Power Set Problem}
+The set of all subsets of $A$ is known as the \emph{power set} $\mathcal{P}(A)$. To get the number of elements, you simply need to realize that there is a bijection between binary strings of length $n$ and elements in the power set (which are themselves sets). For any given binary string, the positions of the $1$s tell you which elements in $A$ are included in the corresponding subset. There are $2^n$ binary strings of length $n$, so $\mathcal{P}(A) = 2^n$.\\
+
+Often the power set of $A$ is denoted $2^A$.
+
+
+
+\end{document}
